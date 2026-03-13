@@ -11,7 +11,7 @@ const B = {
 const brl = n => "R$ " + Number(n||0).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
 const CSS = `
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-  html,body{background:${B.bg};color:${B.offwhite};font-family:'DM Sans',sans-serif;}
+  html,body{background:${B.bg};color:${B.offwhite};font-family:'Sora',sans-serif;}
   @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 `;
 
@@ -93,7 +93,7 @@ export default function Dashboard() {
         <main style={{ maxWidth:860, margin:"0 auto", padding:"28px 16px 70px" }}>
           {/* Saudação */}
           <div style={{ marginBottom:28, animation:"fadeUp .4s ease both" }}>
-            <h1 style={{ fontFamily:"'Syne',sans-serif", fontWeight:900, fontSize:28, marginBottom:4 }}>
+            <h1 style={{ fontFamily:"'Domine',serif", fontWeight:900, fontSize:28, marginBottom:4 }}>
               Olá, {profile?.name?.split(" ")[0] || "você"} 👋
             </h1>
             <p style={{ color:B.muted, fontSize:14 }}>Aqui está todo o seu histórico financeiro.</p>
@@ -108,7 +108,7 @@ export default function Dashboard() {
             ].map(s => (
               <div key={s.label} style={{ background:B.card, border:`1px solid ${B.border}`, borderRadius:16, padding:"16px 10px", textAlign:"center" }}>
                 <div style={{ fontSize:24, marginBottom:6 }}>{s.icon}</div>
-                <div style={{ fontFamily:"'Syne',sans-serif", fontSize:16, fontWeight:900, marginBottom:3 }}>{s.val}</div>
+                <div style={{ fontFamily:"'Domine',serif", fontSize:16, fontWeight:900, marginBottom:3 }}>{s.val}</div>
                 <div style={{ fontSize:10, color:B.muted, fontWeight:600 }}>{s.label}</div>
               </div>
             ))}
@@ -117,12 +117,12 @@ export default function Dashboard() {
           {/* Badges */}
           {badges.length > 0 && (
             <div style={{ background:B.card, border:`1px solid ${B.border}`, borderRadius:18, padding:"18px 20px", marginBottom:24, animation:"fadeUp .4s .1s ease both" }}>
-              <div style={{ fontSize:11, fontWeight:800, color:B.muted, letterSpacing:"1px", textTransform:"uppercase", marginBottom:14, fontFamily:"'Syne',sans-serif" }}>🏅 Badges conquistados</div>
+              <div style={{ fontSize:11, fontWeight:800, color:B.muted, letterSpacing:"1px", textTransform:"uppercase", marginBottom:14, fontFamily:"'Domine',serif" }}>🏅 Badges conquistados</div>
               <div style={{ display:"flex", gap:10, flexWrap:"wrap" }}>
                 {badges.map(b => (
                   <div key={b.id} style={{ background:`${B.orange}15`, border:`1px solid ${B.orange}44`, borderRadius:12, padding:"8px 14px", display:"flex", alignItems:"center", gap:8 }}>
                     <span style={{ fontSize:20 }}>{BADGE_ICONS[b.badge_id] || "🏅"}</span>
-                    <span style={{ fontSize:12, fontWeight:700, fontFamily:"'Syne',sans-serif" }}>{b.badge_id}</span>
+                    <span style={{ fontSize:12, fontWeight:700, fontFamily:"'Domine',serif" }}>{b.badge_id}</span>
                   </div>
                 ))}
               </div>
@@ -132,7 +132,7 @@ export default function Dashboard() {
           {/* Comparativo de gastos */}
           {invoices.length > 1 && (
             <div style={{ background:B.card, border:`1px solid ${B.border}`, borderRadius:18, padding:"18px 20px", marginBottom:24, animation:"fadeUp .4s .13s ease both" }}>
-              <div style={{ fontSize:11, fontWeight:800, color:B.muted, letterSpacing:"1px", textTransform:"uppercase", marginBottom:18, fontFamily:"'Syne',sans-serif" }}>📈 Comparativo de gastos</div>
+              <div style={{ fontSize:11, fontWeight:800, color:B.muted, letterSpacing:"1px", textTransform:"uppercase", marginBottom:18, fontFamily:"'Domine',serif" }}>📈 Comparativo de gastos</div>
               <div style={{ display:"flex", gap:8, alignItems:"flex-end", height:120 }}>
                 {[...invoices].reverse().slice(-6).map((inv, i) => {
                   const max = Math.max(...invoices.map(x => x.total));
@@ -151,13 +151,13 @@ export default function Dashboard() {
 
           {/* Lista de faturas */}
           <div style={{ animation:"fadeUp .4s .16s ease both" }}>
-            <div style={{ fontSize:11, fontWeight:800, color:B.muted, letterSpacing:"1px", textTransform:"uppercase", marginBottom:14, fontFamily:"'Syne',sans-serif" }}>📄 Faturas analisadas</div>
+            <div style={{ fontSize:11, fontWeight:800, color:B.muted, letterSpacing:"1px", textTransform:"uppercase", marginBottom:14, fontFamily:"'Domine',serif" }}>📄 Faturas analisadas</div>
 
             {invoices.length === 0 ? (
               <div style={{ background:B.card, border:`1px solid ${B.border}`, borderRadius:18, padding:"40px 20px", textAlign:"center" }}>
                 <div style={{ fontSize:42, marginBottom:14 }}>📂</div>
                 <p style={{ color:B.muted, fontSize:14 }}>Nenhuma fatura analisada ainda.</p>
-                <button onClick={() => router.push("/")} style={{ marginTop:16, padding:"11px 24px", background:B.orange, border:"none", borderRadius:12, color:"#fff", fontFamily:"'Syne',sans-serif", fontWeight:800, fontSize:13, cursor:"pointer" }}>
+                <button onClick={() => router.push("/")} style={{ marginTop:16, padding:"11px 24px", background:B.orange, border:"none", borderRadius:12, color:"#fff", fontFamily:"'Domine',serif", fontWeight:800, fontSize:13, cursor:"pointer" }}>
                   Analisar primeira fatura
                 </button>
               </div>
@@ -170,11 +170,11 @@ export default function Dashboard() {
                   <div key={inv.id} style={{ background:B.card, border:`1px solid ${isOpen ? B.orange+"55" : B.border}`, borderRadius:18, marginBottom:12, overflow:"hidden", transition:"border .2s" }}>
                     <div onClick={() => setSelected(isOpen ? null : inv.id)} style={{ padding:"18px 20px", cursor:"pointer", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
                       <div>
-                        <div style={{ fontFamily:"'Syne',sans-serif", fontWeight:800, fontSize:16, marginBottom:4 }}>{inv.month || "Fatura"}</div>
+                        <div style={{ fontFamily:"'Domine',serif", fontWeight:800, fontSize:16, marginBottom:4 }}>{inv.month || "Fatura"}</div>
                         <div style={{ fontSize:12, color:B.muted }}>{done}/{total_chs} desafios completos · {new Date(inv.created_at).toLocaleDateString("pt-BR")}</div>
                       </div>
                       <div style={{ textAlign:"right" }}>
-                        <div style={{ fontFamily:"'Syne',sans-serif", fontWeight:900, fontSize:17, color:B.orange }}>{brl(inv.total)}</div>
+                        <div style={{ fontFamily:"'Domine',serif", fontWeight:900, fontSize:17, color:B.orange }}>{brl(inv.total)}</div>
                         <div style={{ fontSize:12, color:B.muted, marginTop:2 }}>{isOpen ? "▲" : "▼"}</div>
                       </div>
                     </div>
