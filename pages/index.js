@@ -3,13 +3,13 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { supabase } from "../lib/supabase";
 
-// ── Stay Brand Palette ─────────────────────────────────────────────────────────
+// ── Stay Brand Palette ───────────────────────────────────────────────────────
 const B = {
   orange:  "#ff561c",
   black:   "#000000",
   offwhite:"#f7f5f0",
   blue:    "#1e22aa",
-  lavender:"#d7c9ff",
+  lavender:"#d7c9ff"
   lime:    "#e7ea7d",
   stone:   "#deddd9",
   bg:      "#080808",
@@ -42,7 +42,7 @@ const brl     = n  => "R$ "+Number(n||0).toLocaleString("pt-BR",{minimumFraction
 
 const CSS = `
   *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
-  html, body { background:${B.bg}; color:${B.offwhite}; font-family:'DM Sans',sans-serif; }
+  html, body { background:${B.bg}; color:${B.offwhite}; font-family:'Sora',sans-serif; }
   ::selection { background:${B.orange}; color:#fff; }
   ::-webkit-scrollbar { width:4px; }
   ::-webkit-scrollbar-thumb { background:rgba(255,255,255,.12); border-radius:99px; }
@@ -56,7 +56,7 @@ const CSS = `
 
 function Toast({ msg, emoji }) {
   return (
-    <div style={{ position:"fixed", top:20, left:"50%", transform:"translateX(-50%)", background:B.orange, color:"#fff", padding:"11px 26px", borderRadius:99, fontFamily:"'Syne',sans-serif", fontWeight:800, fontSize:13, zIndex:9999, whiteSpace:"nowrap", boxShadow:`0 6px 36px ${B.orange}66`, animation:"popIn .38s cubic-bezier(.34,1.56,.64,1)" }}>
+    <div style={{ position:"fixed", top:20, left:"50%", transform:"translateX(-50%)", background:B.orange, color:"#fff", padding:"11px 26px", borderRadius:99, fontFamily:"'Domine',serif", fontWeight:800, fontSize:13, zIndex:9999, whiteSpace:"nowrap", boxShadow:`0 6px 36px ${B.orange}66`, animation:"popIn .38s cubic-bezier(.34,1.56,.64,1)" }}>
       {emoji} {msg}
     </div>
   );
@@ -74,20 +74,20 @@ function ChallengeCard({ ch, onComplete, isDone }) {
   const [hov, setH] = useState(false);
   return (
     <div onMouseEnter={()=>setH(true)} onMouseLeave={()=>setH(false)} style={{ background:isDone?"rgba(255,86,28,.1)":hov?"rgba(255,255,255,.055)":B.card, border:`1.5px solid ${isDone?B.orange+"55":hov?"rgba(255,255,255,.17)":B.border}`, borderRadius:20, padding:"20px 22px", marginBottom:13, transition:"all .2s ease", transform:hov&&!isDone?"translateY(-2px)":"none", position:"relative" }}>
-      {isDone && <div style={{ position:"absolute", top:12, right:14, background:B.orange, color:"#fff", borderRadius:99, fontSize:10, fontWeight:800, padding:"3px 12px", fontFamily:"'Syne',sans-serif", letterSpacing:".7px" }}>✓ FEITO</div>}
+      {isDone && <div style={{ position:"absolute", top:12, right:14, background:B.orange, color:"#fff", borderRadius:99, fontSize:10, fontWeight:800, padding:"3px 12px", fontFamily:"'Domine',serif", letterSpacing:".7px" }}>✓ FEITO</div>}
       <div style={{ display:"flex", gap:14, alignItems:"flex-start" }}>
         <span style={{ fontSize:34, flexShrink:0, lineHeight:1 }}>{ch.emoji}</span>
         <div style={{ flex:1 }}>
-          <div style={{ fontFamily:"'Syne',sans-serif", fontWeight:800, fontSize:15, color:B.offwhite, marginBottom:5 }}>{ch.title}</div>
+          <div style={{ fontFamily:"'Domine',serif", fontWeight:800, fontSize:15, color:B.offwhite, marginBottom:5 }}>{ch.title}</div>
           <div style={{ fontSize:13, color:B.muted, lineHeight:1.65, marginBottom:12 }}>{ch.description}</div>
           <div style={{ display:"flex", gap:10, alignItems:"center", flexWrap:"wrap" }}>
-            <span style={{ background:B.orange, borderRadius:99, padding:"3px 13px", fontSize:11, fontWeight:800, color:"#fff", fontFamily:"'Syne',sans-serif" }}>⭐ +{ch.points} pts</span>
+            <span style={{ background:B.orange, borderRadius:99, padding:"3px 13px", fontSize:11, fontWeight:800, color:"#fff", fontFamily:"'Domine',serif" }}>⭐ +{ch.points} pts</span>
             <span style={{ fontSize:12, color:"rgba(255,255,255,.28)" }}>💰 ~{brl(ch.savings)}/mês</span>
           </div>
         </div>
       </div>
       {!isDone && (
-        <button onClick={() => onComplete(ch)} style={{ marginTop:14, width:"100%", padding:"11px", background:hov?B.orange:"rgba(255,255,255,.05)", border:`1px solid ${hov?B.orange:B.border}`, borderRadius:12, color:"#fff", fontFamily:"'Syne',sans-serif", fontWeight:700, fontSize:13, cursor:"pointer", transition:"all .2s" }}>
+        <button onClick={() => onComplete(ch)} style={{ marginTop:14, width:"100%", padding:"11px", background:hov?B.orange:"rgba(255,255,255,.05)", border:`1px solid ${hov?B.orange:B.border}`, borderRadius:12, color:"#fff", fontFamily:"'Domine',serif", fontWeight:700, fontSize:13, cursor:"pointer", transition:"all .2s" }}>
           {hov ? "🎯 Aceitar Desafio!" : "Marcar como completo"}
         </button>
       )}
@@ -99,7 +99,7 @@ function BadgeTile({ b, earned }) {
   return (
     <div style={{ background:earned?`${B.orange}14`:B.card, border:`1px solid ${earned?B.orange+"44":B.border}`, borderRadius:16, padding:"18px 10px", textAlign:"center", filter:earned?"none":"grayscale(1) opacity(.28)", transition:"all .3s" }}>
       <div style={{ fontSize:30, marginBottom:8 }}>{b.icon}</div>
-      <div style={{ fontFamily:"'Syne',sans-serif", fontSize:10, fontWeight:800, color:B.offwhite, letterSpacing:".5px" }}>{b.name}</div>
+      <div style={{ fontFamily:"'Domine',serif", fontSize:10, fontWeight:800, color:B.offwhite, letterSpacing:".5px" }}>{b.name}</div>
       <div style={{ fontSize:10, color:B.muted, marginTop:4, lineHeight:1.4 }}>{b.desc}</div>
     </div>
   );
@@ -265,7 +265,7 @@ export default function App() {
       <div style={{ textAlign:"center", color:B.offwhite }}>
         <img src="/logo.png" alt="Stay" style={{ height:42, margin:"0 auto 36px", display:"block" }}/>
         <div style={{ fontSize:60, marginBottom:18, animation:"spinPulse 2s linear infinite", display:"inline-block" }}>🔍</div>
-        <h2 style={{ fontFamily:"'Syne',sans-serif", fontSize:24, fontWeight:900, marginBottom:10 }}>Analisando sua fatura…</h2>
+        <h2 style={{ fontFamily:"'Domine',serif", fontSize:24, fontWeight:900, marginBottom:10 }}>Analisando sua fatura…</h2>
         <p style={{ color:B.muted, fontSize:14, marginBottom:32 }}>{loadStep}</p>
         <div style={{ width:200, background:"rgba(255,255,255,.07)", borderRadius:99, height:4, margin:"0 auto", overflow:"hidden" }}>
           <div style={{ height:"100%", background:B.orange, borderRadius:99, animation:"barLoad 2.5s ease-in-out infinite" }}/>
@@ -291,7 +291,7 @@ export default function App() {
               </button>
             )}
             <div style={{ textAlign:"right" }}>
-              <div style={{ fontFamily:"'Syne',sans-serif", fontSize:21, fontWeight:900, color:B.orange }}>⭐ {points} pts</div>
+              <div style={{ fontFamily:"'Domine',serif", fontSize:21, fontWeight:900, color:B.orange }}>⭐ {points} pts</div>
               <div style={{ fontSize:11, color:B.muted }}>{LVL_NAME[level]} {LVL_EMOJI[level]}</div>
             </div>
           </div>
@@ -301,7 +301,7 @@ export default function App() {
       <main style={{ maxWidth:860, margin:"0 auto", padding:"22px 16px 70px" }}>
         <div style={{ background:B.card, border:`1px solid ${B.border}`, borderRadius:18, padding:"15px 20px", marginBottom:18 }}>
           <div style={{ display:"flex", justifyContent:"space-between", marginBottom:8, fontSize:13 }}>
-            <span style={{ fontFamily:"'Syne',sans-serif", fontWeight:800 }}>{LVL_NAME[level]} {LVL_EMOJI[level]}</span>
+            <span style={{ fontFamily:"'Domine',serif", fontWeight:800 }}>{LVL_NAME[level]} {LVL_EMOJI[level]}</span>
             <span style={{ color:B.muted }}>{points} / {LVL_MAX[level-1]} pts</span>
           </div>
           <ProgressBar pct={(points/LVL_MAX[level-1])*100} glow/>
@@ -315,7 +315,7 @@ export default function App() {
           ].map(s => (
             <div key={s.label} style={{ background:B.card, border:`1px solid ${B.border}`, borderRadius:16, padding:"15px 10px", textAlign:"center" }}>
               <div style={{ fontSize:24, marginBottom:5 }}>{s.icon}</div>
-              <div style={{ fontFamily:"'Syne',sans-serif", fontSize:15, fontWeight:900, marginBottom:3 }}>{s.val}</div>
+              <div style={{ fontFamily:"'Domine',serif", fontSize:15, fontWeight:900, marginBottom:3 }}>{s.val}</div>
               <div style={{ fontSize:10, color:B.muted, fontWeight:600 }}>{s.label}</div>
             </div>
           ))}
@@ -323,7 +323,7 @@ export default function App() {
 
         <div style={{ display:"flex", gap:4, background:"rgba(0,0,0,.5)", borderRadius:14, padding:5, marginBottom:22 }}>
           {[["desafios","🎯 Desafios"],["análise","📊 Análise"],["chat","💬 Chat"],["badges","🏅 Badges"]].map(([k,lbl]) => (
-            <button key={k} onClick={() => setTab(k)} style={{ flex:1, padding:"10px 4px", border:"none", borderRadius:10, background:tab===k?B.orange:"transparent", color:tab===k?"#fff":B.muted, fontFamily:"'Syne',sans-serif", fontWeight:700, fontSize:12, cursor:"pointer", transition:"all .18s" }}>{lbl}</button>
+            <button key={k} onClick={() => setTab(k)} style={{ flex:1, padding:"10px 4px", border:"none", borderRadius:10, background:tab===k?B.orange:"transparent", color:tab===k?"#fff":B.muted, fontFamily:"'Domine',serif", fontWeight:700, fontSize:12, cursor:"pointer", transition:"all .18s" }}>{lbl}</button>
           ))}
         </div>
 
@@ -332,11 +332,11 @@ export default function App() {
         {tab==="análise" && (
           <div>
             <div style={{ background:`linear-gradient(135deg,${B.orange}20,${B.orange}08)`, border:`1.5px solid ${B.orange}50`, borderRadius:18, padding:"18px 20px", marginBottom:16 }}>
-              <div style={{ fontSize:10, fontWeight:800, color:B.orange, letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:7, fontFamily:"'Syne',sans-serif" }}>🚨 Principal Vazamento</div>
+              <div style={{ fontSize:10, fontWeight:800, color:B.orange, letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:7, fontFamily:"'Domine',serif" }}>🚨 Principal Vazamento</div>
               <div style={{ fontSize:15, lineHeight:1.6, color:B.offwhite }}>{analysis.top_waste}</div>
             </div>
             <div style={{ background:B.card, border:`1px solid ${B.border}`, borderRadius:18, padding:"18px 20px", marginBottom:16 }}>
-              <div style={{ fontSize:10, fontWeight:800, color:B.muted, letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:14, fontFamily:"'Syne',sans-serif" }}>💡 Insights</div>
+              <div style={{ fontSize:10, fontWeight:800, color:B.muted, letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:14, fontFamily:"'Domine',serif" }}>💡 Insights</div>
               {analysis.insights?.map((ins,i) => (
                 <div key={i} style={{ display:"flex", gap:12, padding:"10px 14px", background:"rgba(255,255,255,.04)", borderRadius:11, marginBottom:8 }}>
                   <span style={{ color:B.orange, flexShrink:0, fontWeight:800 }}>→</span>
@@ -345,7 +345,7 @@ export default function App() {
               ))}
             </div>
             <div style={{ background:B.card, border:`1px solid ${B.border}`, borderRadius:18, padding:"18px 20px" }}>
-              <div style={{ fontSize:10, fontWeight:800, color:B.muted, letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:18, fontFamily:"'Syne',sans-serif" }}>📊 Gastos por Categoria</div>
+              <div style={{ fontSize:10, fontWeight:800, color:B.muted, letterSpacing:"1.2px", textTransform:"uppercase", marginBottom:18, fontFamily:"'Domine',serif" }}>📊 Gastos por Categoria</div>
               {analysis.categories?.sort((a,b)=>b.amount-a.amount).map(cat => (
                 <div key={cat.name} style={{ marginBottom:16 }}>
                   <div style={{ display:"flex", justifyContent:"space-between", marginBottom:6, alignItems:"center", flexWrap:"wrap", gap:4 }}>
@@ -354,7 +354,7 @@ export default function App() {
                       <span style={{ fontWeight:600, fontSize:14 }}>{cat.name}</span>
                       <span style={{ fontSize:11, color:B.muted }}>{cat.transactions}x</span>
                     </div>
-                    <div style={{ fontFamily:"'Syne',sans-serif", fontWeight:800, fontSize:14 }}>{brl(cat.amount)}<span style={{ fontSize:11, color:B.muted, marginLeft:5 }}>{cat.percentage}%</span></div>
+                    <div style={{ fontFamily:"'Domine',serif", fontWeight:800, fontSize:14 }}>{brl(cat.amount)}<span style={{ fontSize:11, color:B.muted, marginLeft:5 }}>{cat.percentage}%</span></div>
                   </div>
                   <ProgressBar pct={cat.percentage} color={CAT_COLOR[cat.name]||"#666"}/>
                 </div>
@@ -366,7 +366,7 @@ export default function App() {
         {tab==="chat" && (
           <div style={{ background:B.card, border:`1px solid ${B.border}`, borderRadius:20, overflow:"hidden" }}>
             <div style={{ padding:"14px 18px", borderBottom:`1px solid ${B.border}`, background:"rgba(0,0,0,.35)" }}>
-              <div style={{ fontFamily:"'Syne',sans-serif", fontWeight:800, fontSize:14 }}>💬 Converse com a Stay IA</div>
+              <div style={{ fontFamily:"'Domine',serif", fontWeight:800, fontSize:14 }}>💬 Converse com a Stay IA</div>
               <div style={{ fontSize:12, color:B.muted }}>Ela conhece toda a sua fatura</div>
             </div>
             <div style={{ height:360, overflowY:"auto", padding:"16px 18px", display:"flex", flexDirection:"column", gap:12 }}>
@@ -417,7 +417,7 @@ export default function App() {
         <meta name="viewport" content="width=device-width,initial-scale=1"/>
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
-        <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Domine:wght@400;500;700&display=swap" rel="stylesheet"/>
       </Head>
       <style>{CSS}</style>
       {toast && <Toast {...toast}/>}
@@ -458,7 +458,7 @@ export default function App() {
           <div style={{ animation:"fadeUp .45s ease both", marginBottom:38 }}>
             <img src="/logo.png" alt="Stay" style={{ height:54, margin:"0 auto", display:"block" }}/>
           </div>
-          <h1 style={{ fontFamily:"'Syne',sans-serif", fontWeight:900, fontSize:"clamp(38px,8vw,64px)", letterSpacing:"-2.5px", lineHeight:1.0, marginBottom:18, animation:"fadeUp .45s .07s ease both" }}>
+          <h1 style={{ fontFamily:"'Domine',serif", fontWeight:900, fontSize:"clamp(38px,8vw,64px)", letterSpacing:"-2.5px", lineHeight:1.0, marginBottom:18, animation:"fadeUp .45s .07s ease both" }}>
             Sua fatura,<br/><span style={{ color:B.orange }}>revelada.</span>
           </h1>
           <p style={{ fontSize:17, color:B.muted, lineHeight:1.75, maxWidth:400, margin:"0 auto 38px", animation:"fadeUp .45s .13s ease both" }}>
@@ -482,7 +482,7 @@ export default function App() {
             onMouseLeave={e=>{ e.currentTarget.style.borderColor="rgba(255,86,28,.32)"; e.currentTarget.style.background="rgba(255,86,28,.04)"; }}
           >
             <div style={{ fontSize:46, marginBottom:14 }}>📂</div>
-            <div style={{ fontFamily:"'Syne',sans-serif", fontSize:18, fontWeight:900, marginBottom:8 }}>Arraste sua fatura aqui</div>
+            <div style={{ fontFamily:"'Domine',serif", fontSize:18, fontWeight:900, marginBottom:8 }}>Arraste sua fatura aqui</div>
             <div style={{ fontSize:13, color:B.muted, marginBottom:22 }}>ou clique para selecionar</div>
             <div style={{ display:"flex", justifyContent:"center", gap:7 }}>
               {["PDF","CSV","XLS","TXT"].map(f=>(<span key={f} style={{ background:"rgba(255,255,255,.08)", border:`1px solid ${B.border}`, padding:"4px 13px", borderRadius:8, fontSize:11, fontWeight:700 }}>{f}</span>))}
