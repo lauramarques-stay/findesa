@@ -26,7 +26,7 @@ REGRAS IMPORTANTES DE CATEGORIZAÇÃO:
 
 REGRAS DE CONTAGEM — MUITO IMPORTANTE:
 - Conte APENAS transações com valor POSITIVO. Linhas com valor negativo são estornos — IGNORE-as completamente, não some, não conte.
-- Quando houver um par de transação + estorno do mesmo valor (ex: Uber R$12,63 e Estorno Uber -R$12,63), IGNORE os dois — foram cancelados.
+- Para Transporte (Uber/99): ignore TODOS os estornos e reprocessamentos. Quando a mesma corrida aparece múltiplas vezes com estornos, conte como UMA corrida apenas. Seja conservador — prefira contar menos do que mais.
 - Cada linha POSITIVA sem estorno correspondente = 1 transação válida.
 - Parcelas (ex: "Parcela 2/2") contam como 1 transação de compra passada.
 - Pagamentos, financiamentos e "Pagamento recebido" NÃO são gastos — ignore completamente.
@@ -34,7 +34,7 @@ REGRAS DE CONTAGEM — MUITO IMPORTANTE:
 
 Retorne este JSON exato:
 {
-  "total": número (total real das compras, sem pagamentos/estornos),
+  "total": número (valor TOTAL DA FATURA conforme indicado no cabeçalho, ex: "Total a pagar: R$ X.XXX,XX" — NÃO calcule, apenas leia o valor já impresso),
   "month": string (ex: "Março/2026"),
   "top_waste": string (principal vazamento com valor e quantidade reais, ex: "R$ 312 em transportes — 14 corridas de Uber e 99"),
   "categories": [
