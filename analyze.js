@@ -11,11 +11,32 @@ export default async function handler(req, res) {
 
   const { base64, mediaType, text } = req.body;
 
-  const prompt = `Analise esta fatura de cartão de crédito e retorne APENAS um JSON válido (sem markdown, sem texto extra) com esta estrutura exata:
+  const prompt = `Você é um analista financeiro especialista em faturas de cartão de crédito brasileiro. Analise cada transação individualmente e retorne APENAS um JSON válido (sem markdown, sem texto extra).
+
+REGRAS IMPORTANTES DE CATEGORIZAÇÃO:
+- "Delivery": APENAS apps de entrega de comida em casa (iFood, Rappi, Uber Eats, James, Ifood). NÃO inclua Uber de transporte.
+- "Transporte": Uber (corridas), 99, táxi, ônibus, metrô, combustível, estacionamento. Uber é transporte, NÃO delivery.
+- "Viagens": ClickBus, passagens de ônibus/avião, hotéis, pousadas, Booking, Airbnb.
+- "Alimentação": Restaurantes, cafés, padarias, bares, lanchonetes, mercados, supermercados onde se come presencialmente.
+- "Lazer": Bares noturnos, shows, eventos, cinema, entretenimento, gift cards.
+- "Saúde/Beleza": Farmácias, drogarias, clínicas, salões, perfumarias, cosméticos.
+- "Compras": Roupas, calçados, eletrônicos, lojas físicas e online (Shopee, Amazon, Shein).
+- "Assinaturas": Netflix, Spotify, Disney+, HBO, softwares, planos mensais recorrentes.
+- "Outros": Lavanderia, serviços domésticos, o que não se encaixar nas anteriores.
+
+REGRAS DE CONTAGEM — MUITO IMPORTANTE:
+- Conte APENAS transações com valor POSITIVO. Linhas com valor negativo são estornos — IGNORE-as completamente, não some, não conte.
+- Quando houver um par de transação + estorno do mesmo valor (ex: Uber R$12,63 e Estorno Uber -R$12,63), IGNORE os dois — foram cancelados.
+- Cada linha POSITIVA sem estorno correspondente = 1 transação válida.
+- Parcelas (ex: "Parcela 2/2") contam como 1 transação de compra passada.
+- Pagamentos, financiamentos e "Pagamento recebido" NÃO são gastos — ignore completamente.
+- NÃO invente transações. Conte apenas o que está escrito na fatura.
+
+Retorne este JSON exato:
 {
-  "total": número (total da fatura em reais),
-  "month": string (mês/ano da fatura ex: "Março/2025"),
-  "top_waste": string (principal vazamento financeiro, ex: "R$ 580 em delivery — 18 pedidos!"),
+  "total": número (total real das compras, sem pagamentos/estornos),
+  "month": string (ex: "Março/2026"),
+  "top_waste": string (principal vazamento com valor e quantidade reais, ex: "R$ 312 em transportes — 14 corridas de Uber e 99"),
   "categories": [
     {"name": string, "amount": número, "percentage": número, "transactions": número}
   ],
@@ -27,17 +48,25 @@ export default async function handler(req, res) {
       "title": string,
       "description": string,
       "points": número (entre 15 e 100),
-      "savings": número (economia mensal estimada em reais),
+      "savings": número (economia mensal realista em reais),
       "category": string
     }
   ]
 }
-Crie exatamente 5 desafios personalizados e motivadores baseados nos gastos reais.
-Use categorias: Alimentação, Delivery, Streaming, Transporte, Lazer, Assinaturas, Compras, Saúde, Outros.`;
+
+Use APENAS estas categorias: Alimentação, Delivery, Transporte, Viagens, Lazer, Assinaturas, Compras, Saúde/Beleza, Outros.
+
+SEPARAÇÃO OBRIGATÓRIA de Alimentação:
+- "Alimentação": restaurantes, cafés, padarias, mercados onde se come/compra presencialmente.
+- "Delivery": APENAS iFood (Ifd*), Rappi, Uber Eats. Keeta* também é delivery.
+- "Lazer": bares noturnos (Zig*, Egm Bebidas, Bar do Ze), shows, eventos — NÃO misture com Alimentação.
+- NÃO coloque bares em Alimentação. Bar = Lazer.
+
+Crie exatamente 5 desafios personalizados e motivadores baseados nos gastos reais encontrados.
+Os desafios devem ser práticos e específicos para os padrões de gasto identificados.`;
 
   try {
     let messages;
-
     if (base64) {
       messages = [
         {
@@ -59,7 +88,7 @@ Use categorias: Alimentação, Delivery, Streaming, Transporte, Lazer, Assinatur
 
     const response = await client.messages.create({
       model: "claude-sonnet-4-20250514",
-      max_tokens: 1500,
+      max_tokens: 2000,
       messages,
     });
 
