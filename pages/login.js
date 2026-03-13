@@ -10,7 +10,7 @@ const B = {
 
 const CSS = `
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-  html,body{background:${B.bg};color:${B.offwhite};font-family:'DM Sans',sans-serif;}
+  html,body{background:${B.bg};color:${B.offwhite};font-family:'Sora',sans-serif;}
   ::selection{background:${B.orange};color:#fff;}
   @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
   input:-webkit-autofill{-webkit-box-shadow:0 0 0 100px ${B.card} inset!important;-webkit-text-fill-color:${B.offwhite}!important;}
@@ -32,7 +32,7 @@ export default function Login() {
       width:"100%", padding:"13px 16px", background:"rgba(255,255,255,.06)",
       border:`1px solid ${B.border}`, borderRadius:12, color:B.offwhite,
       fontSize:15, outline:"none", marginBottom:12,
-      fontFamily:"'DM Sans',sans-serif",
+      fontFamily:"'Sora',sans-serif",
     }
   });
 
@@ -63,9 +63,9 @@ export default function Login() {
       <style>{CSS}</style>
       <div style={{ textAlign:"center", maxWidth:400 }}>
         <div style={{ fontSize:56, marginBottom:20 }}>📬</div>
-        <h2 style={{ fontFamily:"'Syne',sans-serif", fontWeight:900, fontSize:26, marginBottom:12 }}>Confirme seu e-mail</h2>
+        <h2 style={{ fontFamily:"'Domine',serif", fontWeight:900, fontSize:26, marginBottom:12 }}>Confirme seu e-mail</h2>
         <p style={{ color:B.muted, lineHeight:1.7 }}>Enviamos um link de confirmação para <strong style={{color:B.offwhite}}>{email}</strong>. Clique nele para ativar sua conta e depois faça login.</p>
-        <button onClick={()=>{setSent(false);setMode("login");}} style={{ marginTop:28, padding:"12px 28px", background:B.orange, border:"none", borderRadius:12, color:"#fff", fontFamily:"'Syne',sans-serif", fontWeight:800, fontSize:14, cursor:"pointer" }}>
+        <button onClick={()=>{setSent(false);setMode("login");}} style={{ marginTop:28, padding:"12px 28px", background:B.orange, border:"none", borderRadius:12, color:"#fff", fontFamily:"'Domine',serif", fontWeight:800, fontSize:14, cursor:"pointer" }}>
           Ir para o login
         </button>
       </div>
@@ -93,7 +93,7 @@ export default function Login() {
           </div>
 
           <div style={{ background:B.card, border:`1px solid ${B.border}`, borderRadius:24, padding:"32px 28px" }}>
-            <h1 style={{ fontFamily:"'Syne',sans-serif", fontWeight:900, fontSize:22, marginBottom:6 }}>
+            <h1 style={{ fontFamily:"'Domine',serif", fontWeight:900, fontSize:22, marginBottom:6 }}>
               {mode === "login" ? "Bem-vinda de volta 👋" : "Criar sua conta"}
             </h1>
             <p style={{ color:B.muted, fontSize:14, marginBottom:26 }}>
@@ -112,7 +112,7 @@ export default function Login() {
 
             <button
               onClick={submit} disabled={busy}
-              style={{ width:"100%", padding:"13px", background:B.orange, border:"none", borderRadius:12, color:"#fff", fontFamily:"'Syne',sans-serif", fontWeight:800, fontSize:15, cursor:busy?"not-allowed":"pointer", opacity:busy?.7:1, transition:"opacity .2s" }}
+              style={{ width:"100%", padding:"13px", background:B.orange, border:"none", borderRadius:12, color:"#fff", fontFamily:"'Domine',serif", fontWeight:800, fontSize:15, cursor:busy?"not-allowed":"pointer", opacity:busy?.7:1, transition:"opacity .2s" }}
             >
               {busy ? "Aguarde…" : mode === "login" ? "Entrar" : "Criar conta"}
             </button>
