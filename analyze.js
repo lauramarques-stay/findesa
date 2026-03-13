@@ -34,7 +34,7 @@ REGRAS DE CONTAGEM — MUITO IMPORTANTE:
 
 Retorne este JSON exato:
 {
-  "total": número (valor TOTAL DA FATURA conforme indicado no cabeçalho, ex: "Total a pagar: R$ X.XXX,XX" — NÃO calcule, apenas leia o valor já impresso),
+  "total": número (OBRIGATÓRIO: leia o valor exato do campo "Total a pagar" ou "Total da fatura" no documento. Ex: se estiver escrito "R$ 3.463,88", retorne 3463.88. NÃO some nem calcule nada.),
   "month": string (ex: "Março/2026"),
   "top_waste": string (principal vazamento com valor e quantidade reais, ex: "R$ 312 em transportes — 14 corridas de Uber e 99"),
   "categories": [
@@ -95,6 +95,19 @@ Os desafios devem ser práticos e específicos para os padrões de gasto identif
     const raw = response.content.map((b) => b.text || "").join("");
     const clean = raw.replace(/```json|```/g, "").trim();
     const parsed = JSON.parse(clean);
+
+    // Extrai o total real da fatura diretamente do texto original
+    const source = base64 ? null : text;
+    if (source) {
+      const match = source.match(/total a pagar[^\d]*?([\d.,]+)/i) ||
+                    source.match(/valor da fatura[^\d]*?([\d.,]+)/i) ||
+                    source.match(/fatura.*?R\$\s*([\d.,]+)/i);
+      if (match) {
+        const totalReal = parseFloat(match[1].replace(/\./g, "").replace(",", "."));
+        if (totalReal > parsed.total) parsed.total = totalReal;
+      }
+    }
+
     res.status(200).json(parsed);
   } catch (err) {
     console.error(err);
